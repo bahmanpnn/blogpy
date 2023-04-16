@@ -130,12 +130,18 @@ USE_TZ = True
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #ckeditor setting
-# static files
-STATIC_ROOT=os.path.dirname(os.path.abspath(__file__))
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
-STATIC_URL = 'static/'
+
+# STATIC_ROOT=os.path.dirname(os.path.abspath(__file__))
+STATIC_ROOT=os.path.join(BASE_DIR,'staticfiles')
+#static_root use for collectstatic command.when we want to serve static files for nginx;files serve from this path
+STATIC_URL = '/static/'
+#static url is use for files that use in template and their url for request need this path for receive data and files
+STATICFILES_DIRS=(
+    os.path.join(BASE_DIR,'static'),
+)
+#staticFiles is use for set directory that django know static files are there.when we use collect static check first that dirs and collect
 
 #ckeditor 
 CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
