@@ -146,3 +146,11 @@ STATICFILES_DIRS=(
 #ckeditor 
 CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
 CKEDITOR_UPLOAD_PATH = "uploads/"
+
+#MEDIA settings
+MEDIA_URL='/media/dynamic_files/'
+MEDIA_ROOT=os.path.join(BASE_DIR,'')
+
+#remember that if you want to use pillow package.it is a little diffrent to set media_root
+#we need media root (and url?) for using in debug=true state and it does not need in server like nginx!!
+#because we add staticfiles in urlpatterns in this state to django can finds them
