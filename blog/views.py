@@ -14,7 +14,26 @@ class IndexPageView(TemplateView):
                 'created_at':article.created_at.date(),
                 'category':article.category.title
             })
+
+        all_sliders=Article.objects.filter(is_slider=True)
+        sliders=[]
+        for slider in all_sliders:
+            sliders.append({
+                'category':slider.category.title,
+                'title':slider.title,
+                'author':slider.author.user.username,
+                'author_avatar':slider.author.avatar.url if article.author.avatar else None,
+                'slider_cover':slider.avatar.url if article.author.avatar else None,
+                'created_at':slider.created_at.date(),
+            })
+            
         context={
-            'articles':articles
+            'articles':articles,
+            'sliders':sliders,
         }
         return render(request,'blog/index.html',context)
+
+
+class ContactPageView(TemplateView):
+    def get(self,request,**kwargs):
+        return render(request,'blog/page-contact.html')

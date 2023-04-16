@@ -18,8 +18,8 @@ class UserProfile(models.Model):
     about_user=models.CharField(max_length=512,null=False,blank=False)
 
     class Meta:
-        verbose_name = "user_profile"
-        verbose_name_plural = "user_profiles"
+        verbose_name = "user"
+        verbose_name_plural = "user"
 
     def __str__(self):
         return self.user.username
@@ -31,14 +31,15 @@ class Article(models.Model):
     created_at=models.DateTimeField(auto_now_add=True)
     # created_at=models.DateTimeField(default=datetime.now())
     # updated_at=models.DateTimeField(auto_now=True)
-    author=models.ForeignKey(User, on_delete=models.CASCADE)
+    author=models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     category=models.ForeignKey("ArticleCategory", on_delete=models.CASCADE)
     is_active=models.BooleanField(default=True)
+    is_slider=models.BooleanField(default=False)
 
 
     class Meta:
-        verbose_name = "article_cover"
-        verbose_name_plural = "article_covers"
+        verbose_name = "article"
+        verbose_name_plural = "articles"
 
     def __str__(self):
         return self.title
@@ -48,8 +49,8 @@ class ArticleCategory(models.Model):
     cover=models.FileField(upload_to='files/category_covers/',null=False,blank=False,validators=[validate_file_extension])
 
     class Meta:
-        verbose_name = "category_cover"
-        verbose_name_plural = "category_covers"
+        verbose_name = "category"
+        verbose_name_plural = "categories"
 
     def __str__(self):
         return self.title
