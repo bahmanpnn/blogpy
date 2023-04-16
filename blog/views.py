@@ -37,3 +37,5 @@ class IndexPageView(TemplateView):
 class ContactPageView(TemplateView):
     def get(self,request,**kwargs):
         return render(request,'blog/page-contact.html')
+
+

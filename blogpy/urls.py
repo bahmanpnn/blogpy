@@ -7,6 +7,8 @@ urlpatterns = [
     path('ckeditor/', include('ckeditor_uploader.urls')),
     # path(r'^ckeditor/', include('ckeditor_uploader.urls')),
     path('',include('blog.urls')),
+    path('api/',include('api.urls')),
+    path('api-auth/', include('rest_framework.urls')),
 ]
 
 from django.conf.urls.static import static
