@@ -2,8 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
 # from datetime import datetime
-# Create your models here.
 
+#this function validate files that we upload and chek there is in valid extensions list or not!
 def validate_file_extension(value):
     import os
     from django.core.exceptions import ValidationError
