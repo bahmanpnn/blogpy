@@ -2,8 +2,8 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from blog.models import Article
-from .serializers import SingleArticleSerializer
+from blog.models import *
+from .serializers import SingleArticleSerializer,SumbitArticleSerializer
 # Create your views here.
 
 class AllArticles(APIView):
@@ -83,5 +83,39 @@ class SearchArticle(APIView):
             
             return Response({'data':data},status=status.HTTP_200_OK)
 
+        except:
+            return Response({'status':'Internal Server Error!! try again later'},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+class SubmitArticleView(APIView):
+    def post(self,request,format=None):
+        try:
+            serializer=SumbitArticleSerializer(data=request.data)
+            if serializer.is_valid():
+                title=request.data.get('title')
+                avatar=request.FILES('avatar')
+                content=request.data.get('content')
+                category_id=request.data.get('category_id')
+                author_id=request.data.get('author_id')
+                is_slider=request.data.get('is_slider')
+            else:
+                return Response({'status':'Bad Request!!'},status=status.HTTP_400_BAD_REQUEST)
+
+            user=User.objects.get(id=auhtor_id)
+            author=UserProfile.objects.get(user=user)
+            category=ArticleCategory.objects.get(id=category_id)
+            
+            # new_article=Article(title=title,avatar=avatar,content=content,category=category,author=author,is_slider=is_slider)
+            
+            new_article=Article()
+            new_article.title=title
+            new_article.avatar=avatar
+            new_article.content=content
+            new_article.category=category
+            new_article.author=author
+            new_article.is_slider=is_slider
+            
+            new_article.save()
+
+            return Response({'status':'article created'},status=status.HTTP_201_CREATED)
         except:
             return Response({'status':'Internal Server Error!! try again later'},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
