@@ -18,3 +18,6 @@ class SumbitArticleSerializer(serializers.Serializer):
 class UpdateArticleSerializer(serializers.Serializer):
     article_id=serializers.IntegerField(required=True,allow_null=False)
     avatar=serializers.FileField(allow_null=False,allow_empty_file=False,required=True)
+
+class DeleteArticleSerializer(serializers.Serializer):
+    article_id=serializers.IntegerField(required=True,allow_null=False)

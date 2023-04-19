@@ -8,4 +8,5 @@ urlpatterns=[
     path('articles/search_article/',views.SearchArticle.as_view(),name='search-article'),
     path('articles/submit_article/',views.SubmitArticleView.as_view(),name='submit-article'),
     path('articles/update_article/',views.UpdateArticleView.as_view(),name='update-article'),
+    path('articles/delete_article/',views.DeleteArticleView.as_view(),name='delete-article'),
 ]
