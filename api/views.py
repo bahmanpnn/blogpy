@@ -3,7 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from blog.models import *
-from .serializers import SingleArticleSerializer,SumbitArticleSerializer
+from .serializers import SingleArticleSerializer,SumbitArticleSerializer,UpdateArticleSerializer
 # Create your views here.
 
 class AllArticles(APIView):
@@ -86,17 +86,18 @@ class SearchArticle(APIView):
         except:
             return Response({'status':'Internal Server Error!! try again later'},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+#it has problem
 class SubmitArticleView(APIView):
     def post(self,request,format=None):
         try:
             serializer=SumbitArticleSerializer(data=request.data)
             if serializer.is_valid():
-                title=request.data.get('title')
-                avatar=request.FILES('avatar')
-                content=request.data.get('content')
-                category_id=request.data.get('category_id')
-                author_id=request.data.get('author_id')
-                is_slider=request.data.get('is_slider')
+                title=request.data.get['title']
+                avatar=request.FILES['avatar']
+                content=request.data.get['content']
+                category_id=request.data.get['category_id']
+                author_id=request.data.get['author_id']
+                is_slider=request.data.get['is_slider']
             else:
                 return Response({'status':'Bad Request!!'},status=status.HTTP_400_BAD_REQUEST)
 
@@ -117,5 +118,21 @@ class SubmitArticleView(APIView):
             new_article.save()
 
             return Response({'status':'article created'},status=status.HTTP_201_CREATED)
+        except:
+            return Response({'status':'Internal Server Error!! try again later'},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class UpdateArticleView(APIView):
+    def post(self,request,format=None):
+        try:
+            serializer=UpdateArticleSerializer(data=request.data)
+            if serializer.is_valid():
+                article_id=request.data.get['article_id']
+                avatar=request.FILES['avatar']
+            else:
+                return Response({'status':'Bad Request!!'},status=status.HTTP_400_BAD_REQUEST)
+            
+            Article.objects.filter(id=article_id).update(avatar=avatar)
+            return Response({'data':data},status=status.HTTP_200_OK)
         except:
             return Response({'status':'Internal Server Error!! try again later'},status=status.HTTP_500_INTERNAL_SERVER_ERROR)

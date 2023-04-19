@@ -14,3 +14,7 @@ class SumbitArticleSerializer(serializers.Serializer):
     category_id=serializers.IntegerField(required=True,allow_null=False)
     author_id=serializers.IntegerField(required=True,allow_null=False)
     is_slider=serializers.BooleanField(required=True,allow_null=False)
+
+class UpdateArticleSerializer(serializers.Serializer):
+    article_id=serializers.IntegerField(required=True,allow_null=False)
+    avatar=serializers.FileField(allow_null=False,allow_empty_file=False,required=True)
