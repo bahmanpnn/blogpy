@@ -23,10 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-(d@yxvk6+vtg_y)4$4ck%acg#bay6m$9_(#qrxlk^&bqy!49z+'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -81,13 +80,15 @@ WSGI_APPLICATION = 'blogpy.wsgi.application'
 # POSTGRES_PASSWORD=123
 # POSTGRES_DB=blogpy
 
+#in docker we dont neet ip for set in host of database and containers can have a connection with name(in one network).
+# so in host we stead of localhost use postgresql container name==>blogpy_postgresql
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME':'blogpy',
         'USER':'blogpy',
         'PASSWORD':'123',
-        'HOST':'localhost',
+        'HOST':'blogpy_postgresql',
         'PORT':'5432',
    }
 
@@ -135,13 +136,15 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 # STATIC_ROOT=os.path.dirname(os.path.abspath(__file__))
-STATIC_ROOT=os.path.join(BASE_DIR,'staticfiles')
+STATIC_ROOT=os.path.join(BASE_DIR,'static ')
 #static_root use for collectstatic command.when we want to serve static files for nginx;files serve from this path
 STATIC_URL = '/static/'
+
 #static url is use for files that use in template and their url for request need this path for receive data and files
-STATICFILES_DIRS=(
-    os.path.join(BASE_DIR,'static'),
-)
+# for config staticfiles for deploy in wbeserver we dont need staticfiles_dirs!just we use this one in developing enviroments!
+# STATICFILES_DIRS=(
+#     os.path.join(BASE_DIR,'static'),
+# )
 #staticFiles is use for set directory that django know static files are there.when we use collect static check first that dirs and collect
 
 #ckeditor 
