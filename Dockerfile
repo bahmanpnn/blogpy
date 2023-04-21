@@ -1,4 +1,4 @@
-FROM python 3.8
+FROM python:3.10.11
 LABEL MAINTAINER="Bahman Pournazari | bahmanpn@gmail.com"
 
 ENV PYTHONUNBUFFERED 1
